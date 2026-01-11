@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin("*")
 public class TaskController {
 
     //Inject the TaskService, Just like we did in the service for the repository
