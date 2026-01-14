@@ -65,10 +65,17 @@ public class TaskService {
 
 
     public Task updateTask(Long id, Task taskDetails) {
+        System.out.println("--- UPDATE TASK REQUEST RECEIVED ---");
+
         Task task = getTaskById(id);
         User currentUser = getCurrentUser();
 
+        System.out.println("Task Owner ID: " + task.getUser().getId());
+        System.out.println("Current User ID: " + currentUser.getId());
+
+        // Security Check
         if (!task.getUser().getId().equals(currentUser.getId())) {
+            System.out.println("!!! PERMISSION DENIED !!!");
             throw new RuntimeException("You do not have permission to update this task");
         }
 
@@ -76,6 +83,7 @@ public class TaskService {
         task.setDescription(taskDetails.getDescription());
         task.setCompleted(taskDetails.isCompleted());
 
+        System.out.println("--- UPDATE SUCCESSFUL ---");
         return taskRepository.save(task);
     }
 }
